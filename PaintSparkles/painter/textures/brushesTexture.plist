@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>brushesTexture</key>
+	<array>
+		<string>crayon</string>
+		<string>roller</string>
+		<string>stars</string>
+		<string>needle</string>
+		<string>glitter</string>
+		<string>hearts</string>
+		<string>tushtush</string>
+		<string>marker</string>
+		<string>flowers</string>
+		<string>bricks</string>
+	</array>
+	<key>texturesWithoutBackgrounds</key>
+	<dict>
+		<key>roller</key>
+		<string>no_texture</string>
+	</dict>
+	<key>hasSelectedImg</key>
+	<dict/>
+	<key>brushHighlightIndent</key>
+	<dict>
+		<key>indentX</key>
+		<real>45.5</real>
+		<key>indentY</key>
+		<integer>53</integer>
+	</dict>
+</dict>
+</plist>

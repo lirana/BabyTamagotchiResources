@@ -1,0 +1,715 @@
+<?xml version="1.0" ?>
+
+<ttMacro name="Blending Animation">
+    <ttMacroBody>
+        <ttActionsGroup>
+            <ttTrigger>notification</ttTrigger>
+            <ttNotificationIdentifyer>2847</ttNotificationIdentifyer>
+            <ttApplyOn>layer</ttApplyOn>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>jumpTo</ttType>
+                    <ttActionDuration>5</ttActionDuration>
+                    <ttNumberOfJumps>30</ttNumberOfJumps>
+                    <ttFinalPosition x="0" y="0" />
+                    <ttActionHeigth>2</ttActionHeigth>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+        <ttActionsGroup>
+            <ttTrigger>notification</ttTrigger>
+            <ttNotificationIdentifyer>2848</ttNotificationIdentifyer>
+            <ttApplyOn>layer</ttApplyOn>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>moveToPoint</ttType>
+                    <ttActionDuration>0</ttActionDuration>
+                    <ttFinalPosition x="0" y="0" />
+                </ttAction>
+            </ttSequenceGroup>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>stopRunningActions</ttType>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+        <ttActionsGroup>
+            <ttTrigger>notification</ttTrigger>
+            <ttNotificationIdentifyer>2849</ttNotificationIdentifyer>
+            <ttApplyOn>layer</ttApplyOn>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>moveToPoint</ttType>
+                    <ttActionDuration>0</ttActionDuration>
+                    <ttFinalPosition x="0" y="0" />
+                </ttAction>
+            </ttSequenceGroup>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>stopRunningActions</ttType>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+    </ttMacroBody>
+</ttMacro>
+
+
+<ttMacro name="popup">
+	<ttMacroParams>
+        <ttMacroParamDef name="$delay"/>
+		<ttMacroParamDef name="$duration"/>
+		<ttMacroParamDef name="$life"/>
+    </ttMacroParams>
+    <ttMacroBody>
+       <!-- entrance animation -->
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>delay</ttType>
+                    <ttActionDuration>$delay</ttActionDuration>
+                </ttAction>
+				<ttAction>
+					<ttType>scale</ttType>
+					<ttScaleTo>1</ttScaleTo>
+					<ttActionDuration>0</ttActionDuration>
+				</ttAction>
+            </ttSequenceGroup>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>moveToPoint</ttType>
+                    <ttFinalPosition x="20" y="-20"/>
+                    <ttActionDuration>0</ttActionDuration>
+				</ttAction>
+						<ttAction>
+                            <ttType>rotate</ttType>
+                            <ttActionDuration>0</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttActionRotateAngle>20</ttActionRotateAngle>
+                        </ttAction>
+            </ttSequenceGroup>
+            <ttSequenceGroup> 
+                <ttAction>
+                    <ttType>fadeIn</ttType>
+					<ttActionDuration>$duration</ttActionDuration>
+                </ttAction>
+                <ttAction>
+                    <ttType>moveToPoint</ttType> <!--Positioned on screen -->
+                    <ttFinalPosition x="25" y="30"/>
+                    <ttActionDuration>$duration</ttActionDuration>
+                    <ttActionEaseMode>easeSineOut</ttActionEaseMode>
+					<ttActionEaseRate>2.00</ttActionEaseRate>
+                </ttAction>
+				<ttAction>
+					   <ttType>rotate</ttType>
+						<ttActionDuration>0.5</ttActionDuration>
+						<ttActionEaseRate>2.00</ttActionEaseRate>
+						<ttActionEaseMode>easeInOut</ttActionEaseMode>
+						<ttActionRotateAngle>-20</ttActionRotateAngle>
+                </ttAction>
+            </ttSequenceGroup>
+			<ttSequenceGroup>
+                <ttAction>
+                    <ttType>delay</ttType>
+                    <ttActionDuration>$life</ttActionDuration>
+                </ttAction>
+            </ttSequenceGroup>
+			<ttSequenceGroup>
+                <ttAction>
+                    <ttType>moveToPoint</ttType>
+                    <ttFinalPosition x="25" y="-25"/>
+                    <ttActionDuration>$duration</ttActionDuration>
+                    <ttActionEaseMode>easeBackIn</ttActionEaseMode>
+                </ttAction>
+            </ttSequenceGroup>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="fadeOutWithNotification">
+	<ttMacroParams>
+        <ttMacroParamDef name="$notification"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttActionsGroup>
+            <ttTrigger>notification</ttTrigger>
+            <ttNotificationIdentifyer>$notification</ttNotificationIdentifyer>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>fadeOut</ttType>
+                    <ttActionDuration>0.5</ttActionDuration>
+                </ttAction>
+            </ttSequenceGroup>
+			<ttSequenceGroup>
+                <ttAction>
+                    <ttType>delay</ttType>
+                    <ttActionDuration>1</ttActionDuration>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="popupBlocker">
+	<ttMacroParams>
+        <ttMacroParamDef name="$listenNotification"/>
+		<ttMacroParamDef name="$sendNotification"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttObject>
+            <ttType>lable</ttType>
+            <ttImage>napkins blocker</ttImage>
+            <ttTopLeftX>0</ttTopLeftX>
+            <ttTopLeftY>100</ttTopLeftY>
+            <ttTopRightX>100.0</ttTopRightX>
+            <ttTopRightY>100</ttTopRightY>
+            <ttBottomLeftX>0</ttBottomLeftX>
+            <ttBottomLeftY>0.0</ttBottomLeftY>
+            <ttBottomRightX>100.0</ttBottomRightX>
+            <ttBottomRightY>0.0</ttBottomRightY>
+            <ttEnabled>no</ttEnabled>
+            <ttVisible>no</ttVisible>
+            <ttZOrder>550</ttZOrder>
+            <ttActionsGroup>
+                <ttTrigger>notification</ttTrigger>
+                <ttNotificationIdentifyer>$listenNotification</ttNotificationIdentifyer> <!-- put ingredient-->
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>enableObject</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>delay</ttType>
+                        <ttActionDuration>4</ttActionDuration>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>disableObject</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>$sendNotification</ttNotificationIdentifyer>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>disableObject</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+        </ttObject>
+        
+    </ttMacroBody>
+</ttMacro>
+<ttMacro name="ingrEnters">
+	<ttMacroParams>
+		<ttMacroParamDef name="$ingrY"/>
+		<ttMacroParamDef name="$ingrX"/>
+		<ttMacroParamDef name="$ingrDelay"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <!-- entrance animation -->
+        <ttSequenceGroup>
+            <ttAction>	<!--outaScreen-->
+                <ttType>moveBy</ttType>
+                <ttActionDuration>0</ttActionDuration>
+                <ttFinalPosition x="30" y="0" />
+            </ttAction>
+        </ttSequenceGroup>
+        <ttSequenceGroup>
+            <ttAction>
+                <ttType>delay</ttType> <!--wave motion  -->
+                <ttActionDuration>$ingrDelay</ttActionDuration>
+            </ttAction>
+        </ttSequenceGroup>
+        <ttSequenceGroup>
+            <ttAction>
+                <ttType>makeVisible</ttType>
+            </ttAction>
+            <ttAction>
+                <ttType>moveToPoint</ttType>
+                <ttFinalPosition x="$ingrX" y="$ingrY"/>
+                <ttActionDuration>0.8</ttActionDuration>
+                <ttActionEaseMode>easeBackOut</ttActionEaseMode>
+            </ttAction>			
+        </ttSequenceGroup>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="heatingRings">
+	<ttMacroParams>
+		<ttMacroParamDef name="$ringDelay"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <!-- entrance animation -->
+        <ttSequenceGroup>
+            <ttAction>
+                <ttType>fadeOut</ttType> <!--Initializing fade  -->
+            </ttAction>
+        </ttSequenceGroup>
+		<ttSequenceGroup>
+            <ttAction>
+                <ttType>makeVisible</ttType> <!--turning on  -->
+            </ttAction>
+        </ttSequenceGroup>
+		<ttSequenceGroup>
+            <ttAction>
+                <ttType>delay</ttType> <!--wave motion  -->
+                <ttActionDuration>$ringDelay</ttActionDuration>
+            </ttAction>
+        </ttSequenceGroup>
+		<ttSequenceGroup>
+			<ttAction>
+				<ttType>fadeIn</ttType>
+				<ttActionDuration>0.7</ttActionDuration>
+				<ttActionEaseMode>easeInOut</ttActionEaseMode>
+				<ttActionEaseRate>2.00</ttActionEaseRate>
+			</ttAction>
+		</ttSequenceGroup>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="waveRings">
+	<ttMacroParams>
+		<ttMacroParamDef name="$ringDelay"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <!-- entrance animation -->
+		<ttSequenceGroup>
+            <ttAction>
+                <ttType>delay</ttType> <!--wave motion  -->
+                <ttActionDuration>$ringDelay</ttActionDuration>
+            </ttAction>
+        </ttSequenceGroup>
+		<ttSequenceGroup>
+			<ttAction>
+				<ttType>fadeOut</ttType>
+				<ttActionDuration>0.4</ttActionDuration>
+				<ttActionEaseMode>easeInOut</ttActionEaseMode>
+				<ttActionEaseRate>2.00</ttActionEaseRate>
+			</ttAction>
+		</ttSequenceGroup>
+		<ttSequenceGroup>
+			<ttAction>
+				<ttType>fadeIn</ttType>
+				<ttActionDuration>0.4</ttActionDuration>
+				<ttActionEaseMode>easeInOut</ttActionEaseMode>
+				<ttActionEaseRate>2.00</ttActionEaseRate>
+			</ttAction>
+		</ttSequenceGroup>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="nextAndPrevButtons">
+	<ttMacroParams>
+		<ttMacroParamDef name="$enableNotificationId"/>
+		<ttMacroParamDef name="$moveToSceneAction"/>
+        <ttMacroParamDef name="$image"/>
+        <ttMacroParamDef name="$basePositionX"/>
+        <ttMacroParamDef name="$basePositionY"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttObject>
+            <ttImage>$image</ttImage>
+            <ttBasePosition x="$basePositionX" y="$basePositionY"/>
+            <ttEnabled>no</ttEnabled>
+            <ttVisible>no</ttVisible>
+            <ttActionsGroup>
+                <ttNotificationIdentifyer>$enableNotificationId</ttNotificationIdentifyer>
+                <ttTrigger>notification</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>enableObject</ttType>
+                    </ttAction>
+                    <ttAction>
+                        <ttType>makeVisible</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>$moveToSceneAction</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+        </ttObject>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="shakeIngredient">
+	<ttMacroParams>
+        <ttMacroParamDef name="$notificationID"/>
+    </ttMacroParams>
+    <ttMacroBody>
+		<ttActionsGroup> <!-- shake if shakeIt = 0 -->
+			<ttTrigger>automatic+notification</ttTrigger>
+			<ttNotificationIdentifyer>$notificationID</ttNotificationIdentifyer>
+			<ttAutoActionRunEvery>0.24</ttAutoActionRunEvery>
+			<ttOperator>
+				<ttScript>return (shakeIt == 0)</ttScript>
+			</ttOperator>
+            <ttSequenceGroup>
+				<ttAction>
+					<ttType>scaleXy</ttType>
+					<ttActionDuration>0.12</ttActionDuration>
+					<ttScaleX>1.03</ttScaleX>
+					<ttScaleY>0.97</ttScaleY>
+					<ttActionEaseMode>easeInOut</ttActionEaseMode>
+					<ttActionEaseRate>2.00</ttActionEaseRate>
+				</ttAction>
+			</ttSequenceGroup>
+			<ttSequenceGroup>
+				<ttAction>
+					<ttType>scaleXy</ttType>
+					<ttActionDuration>0.12</ttActionDuration>
+					<ttScaleX>1</ttScaleX>
+					<ttScaleY>1</ttScaleY>
+					<ttActionEaseMode>easeInOut</ttActionEaseMode>
+					<ttActionEaseRate>2.00</ttActionEaseRate>
+				</ttAction>
+			</ttSequenceGroup>
+		</ttActionsGroup>	
+		<ttActionsGroup> <!-- on touch - set "dont shake" -->
+			<ttTrigger>onTouchesBegan</ttTrigger>
+			<ttOperator> <!-- solution so other ingredient's touch won't stop the shaking -->
+                <ttType>equal</ttType>
+                <ttOperator>
+                    <ttVariable>numberOfIngedientInPlace</ttVariable>
+                </ttOperator>
+                <ttOperator>
+                    <ttConst>$notificationID</ttConst>
+                </ttOperator>
+            </ttOperator>
+            <ttSequenceGroup>
+				<ttAction>
+					 <ttType>setVariable</ttType>
+						<ttVariable>shakeIt</ttVariable>
+					 <ttOperator>
+						<ttScript><![CDATA[return 1]]></ttScript> 
+					 </ttOperator>
+				</ttAction>	
+			</ttSequenceGroup>
+		</ttActionsGroup>	
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="touchIndicatorAnimation">
+	<ttMacroParams>
+		<ttMacroParamDef name="$ingredientIndex"/>
+		<ttMacroParamDef name="$startPositionX"/>
+		<ttMacroParamDef name="$startPositionY"/>
+		<ttMacroParamDef name="$endPositionX"/>
+		<ttMacroParamDef name="$endPositionY"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttActionsGroup>
+            <ttAutoActionRunEvery>3</ttAutoActionRunEvery>
+            <ttTriggerDelay>3</ttTriggerDelay>
+            <ttTrigger>automatic+notification</ttTrigger>
+            <ttNotificationIdentifyer>22</ttNotificationIdentifyer>
+            <ttOperator>
+                <ttType>equal</ttType>
+                <ttOperator>
+                    <ttVariable>numberOfIngedientInPlace</ttVariable>
+                </ttOperator>
+                <ttOperator>
+                    <ttConst>$ingredientIndex</ttConst>
+                </ttOperator>
+            </ttOperator>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>moveToPoint</ttType>
+                    <ttFinalPosition x="$startPositionX" y="$startPositionY"/>
+                </ttAction>
+                <ttAction>
+                    <ttType>rotate</ttType>
+                    <ttActionDuration>0</ttActionDuration>
+                    <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                    <ttActionRotateAngle>-20</ttActionRotateAngle>
+                </ttAction>
+            </ttSequenceGroup>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>moveToPoint</ttType>
+                    <ttFinalPosition x="$endPositionX" y="$endPositionY"/>
+                    <ttActionDuration>1.2</ttActionDuration>
+                    <ttActionEaseRate>2.00</ttActionEaseRate>
+                    <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                </ttAction>
+                <ttAction>
+                    <ttType>rotate</ttType>
+                    <ttActionDuration>1.2</ttActionDuration>
+                    <ttActionEaseRate>2.00</ttActionEaseRate>
+                    <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                    <ttActionRotateAngle>20</ttActionRotateAngle>
+                </ttAction>
+            </ttSequenceGroup>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>delay</ttType>
+                    <ttActionDuration>1.8</ttActionDuration>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+    </ttMacroBody>
+</ttMacro>
+<!-- Health Macros -->
+<ttMacro name="brocObj">
+	<ttMacroParams>
+        <ttMacroParamDef name="$brocDelay"/>
+		<ttMacroParamDef name="$brocX"/>
+		<ttMacroParamDef name="$onNotif"/>
+		<ttMacroParamDef name="$offNotif"/>
+		<ttMacroParamDef name="$nextOffNotif"/>
+		<ttMacroParamDef name="$prevOnNotif"/>
+		<ttMacroParamDef name="$isOnVar"/>
+		<ttMacroParamDef name="$onSound"/>
+		<ttMacroParamDef name="$offSound"/>
+    </ttMacroParams>
+    <ttMacroBody>
+		<!-- hole -->
+		<ttObject>
+			<ttImage>images/health/emptBroc.png</ttImage>
+			<ttBasePosition x="$brocX" y="22"/>
+		</ttObject>
+		<!-- Glow -->
+		<ttObject>
+			<ttImage>images/health/brocGlow.png</ttImage>
+			<ttBasePosition x="$brocX" y="22"/>
+			<ttVisible>no</ttVisible>
+			<ttActionsGroup> <!-- On -->
+				<ttTrigger>notification</ttTrigger>
+				<ttNotificationIdentifyer>$onNotif</ttNotificationIdentifyer>
+					<ttOperator>
+                        <ttType>equal</ttType>
+                        <ttOperator>
+                            <ttVariable>$isOnVar</ttVariable>
+                        </ttOperator>
+                        <ttOperator>
+                            <ttConst>0</ttConst>
+                        </ttOperator>
+                    </ttOperator>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>delay</ttType>
+						<ttActionDuration>$brocDelay</ttActionDuration>
+					</ttAction>
+				</ttSequenceGroup>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>scale</ttType>
+						<ttScaleTo>0</ttScaleTo>
+						<ttActionDuration>0.0</ttActionDuration>
+					</ttAction>
+					<ttAction>
+						<ttType>fadeIn</ttType>
+						<ttActionDuration>0.0</ttActionDuration>
+					</ttAction>
+				</ttSequenceGroup>
+				<ttSequenceGroup> 
+					<ttAction>
+						<ttType>makeVisible</ttType>
+					</ttAction>
+					<ttAction>
+						 <ttType>setVariable</ttType>
+							<ttVariable>$isOnVar</ttVariable>
+						 <ttOperator>
+							<ttScript><![CDATA[return 1]]></ttScript>  <!--is On-->
+						 </ttOperator>
+					</ttAction>	
+				</ttSequenceGroup>
+				<ttSequenceGroup> <!--visible animation -->
+					<ttAction>
+						<ttType>scale</ttType>
+						<ttScaleTo>1</ttScaleTo>
+						<ttActionDuration>0.3</ttActionDuration>
+						<ttActionEaseMode>easeOut</ttActionEaseMode>
+						<ttActionEaseRate>2.00</ttActionEaseRate>
+					</ttAction>
+				</ttSequenceGroup>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>fadeOut</ttType>
+						<ttActionDuration>1</ttActionDuration>
+						<ttActionEaseMode>easeIn</ttActionEaseMode>
+						<ttActionEaseRate>2.00</ttActionEaseRate>
+					</ttAction>
+				</ttSequenceGroup>
+			</ttActionsGroup>	
+
+		</ttObject>
+		<!-- the Broccoli -->
+		<ttObject>
+			<ttImage>images/health/broc.png</ttImage>
+			<ttBasePosition x="$brocX" y="22"/>
+			<ttVisible>no</ttVisible>
+			<ttActionsGroup>
+			<ttTrigger>automatic</ttTrigger> <!-- auto make visible, if "isOn" is true -->
+				<ttOperator> <!-- if on -->
+                        <ttType>equal</ttType> 
+                        <ttOperator>
+                            <ttVariable>$isOnVar</ttVariable>
+                        </ttOperator>
+                        <ttOperator>
+                            <ttConst>1</ttConst>
+                        </ttOperator>
+                    </ttOperator>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>makeVisible</ttType>
+					</ttAction>	
+				</ttSequenceGroup>
+			</ttActionsGroup>
+			<ttActionsGroup> <!-- On animation -->
+				<ttTrigger>notification</ttTrigger>
+				<ttNotificationIdentifyer>$onNotif</ttNotificationIdentifyer>
+					<ttOperator> <!-- if off -->
+                        <ttType>equal</ttType> 
+                        <ttOperator>
+                            <ttVariable>$isOnVar</ttVariable>
+                        </ttOperator>
+                        <ttOperator>
+                            <ttConst>0</ttConst>
+                        </ttOperator>
+                    </ttOperator>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>delay</ttType>
+						<ttActionDuration>$brocDelay</ttActionDuration>
+					</ttAction>
+					<ttAction>						 <!-- reset scale to 0 -->
+						<ttType>scale</ttType>
+						<ttScaleTo>0</ttScaleTo>
+						<ttActionDuration>0</ttActionDuration>
+					</ttAction>
+					<ttAction>
+						<ttType>sendNotification</ttType>		<!-- send notification for prev broccoli to turn on, ignoring delay -->
+						<ttNotificationIdentifyer>$prevOnNotif</ttNotificationIdentifyer>
+					</ttAction>
+					<ttAction>
+						<ttType>sendNotification</ttType>		<!-- Back panel, move! -->
+						<ttNotificationIdentifyer>45</ttNotificationIdentifyer>
+					</ttAction>
+				</ttSequenceGroup>
+				<ttSequenceGroup>				<!-- animation and update broc status to "is on" -->
+					<ttAction>
+						<ttType>makeVisible</ttType>
+					</ttAction>
+					<ttAction>
+						 <ttType>setVariable</ttType>
+							<ttVariable>$isOnVar</ttVariable>
+						 <ttOperator>
+							<ttScript><![CDATA[return 1]]></ttScript>  <!--is On-->
+						 </ttOperator>
+					</ttAction>	
+				</ttSequenceGroup>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>scale</ttType>
+						<ttScaleTo>1</ttScaleTo>
+						<ttActionDuration>0.4</ttActionDuration>
+						<ttActionEaseMode>easeBackOut</ttActionEaseMode>
+						<ttActionEaseRate>2.00</ttActionEaseRate>
+					</ttAction>
+					<ttAction>
+						<ttType>playSound</ttType>
+						<ttFile>$onSound</ttFile>
+					</ttAction>
+				</ttSequenceGroup>
+			</ttActionsGroup>
+			
+			<ttActionsGroup> <!-- Off -->
+				<ttTrigger>notification</ttTrigger>
+				<ttNotificationIdentifyer>$offNotif</ttNotificationIdentifyer>
+					<ttOperator>						<!-- if on ... -->
+                        <ttType>equal</ttType>
+                        <ttOperator>
+                            <ttVariable>$isOnVar</ttVariable>
+                        </ttOperator>
+                        <ttOperator>
+                            <ttConst>1</ttConst>
+                        </ttOperator>
+                    </ttOperator>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>delay</ttType>
+						<ttActionDuration>$brocDelay</ttActionDuration>
+					</ttAction>
+				</ttSequenceGroup>
+				<ttSequenceGroup>						<!-- initialize animation values -->
+					<ttAction>
+						<ttType>scale</ttType>
+						<ttScaleTo>0</ttScaleTo>
+						<ttActionDuration>0.4</ttActionDuration>
+						<ttActionEaseMode>easeBackIn</ttActionEaseMode>
+						<ttActionEaseRate>2.00</ttActionEaseRate>
+					</ttAction>
+					<ttAction>
+						<ttType>fadeOut</ttType>
+						<ttActionDuration>0.3</ttActionDuration>
+					</ttAction>
+					<ttAction>							<!-- send chain notification for next brocoly to shut off -->
+						<ttType>sendNotification</ttType>
+						<ttNotificationIdentifyer>$nextOffNotif</ttNotificationIdentifyer>
+					</ttAction>	
+					<ttAction>
+						<ttType>playSound</ttType>
+						<ttFile>$offSound</ttFile>
+					</ttAction>
+				</ttSequenceGroup>
+				<ttSequenceGroup>						<!-- visible animation -->
+					<ttAction>
+						<ttType>makeInvisible</ttType>
+					</ttAction>
+					<ttAction>
+						 <ttType>setVariable</ttType>
+							<ttVariable>$isOnVar</ttVariable>
+						 <ttOperator>
+							<ttScript><![CDATA[return 0]]></ttScript>  <!--is Off-->
+						 </ttOperator>
+					</ttAction>	
+				</ttSequenceGroup>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>fadeIn</ttType>
+					</ttAction>
+				</ttSequenceGroup>
+			</ttActionsGroup>
+		</ttObject>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="notificationsConverter">
+	<ttMacroParams>
+        <ttMacroParamDef name="$inNotif"/>
+		<ttMacroParamDef name="$outNotif"/>
+    </ttMacroParams>
+    <ttMacroBody>
+	
+		<ttObject>
+			<ttImage>Chainer</ttImage>
+			<ttType>lable</ttType>
+			<ttVisible>no</ttVisible>
+			<ttActionsGroup>
+				<ttTrigger>notification</ttTrigger>
+				<ttNotificationIdentifyer>$inNotif</ttNotificationIdentifyer>
+				<ttSequenceGroup>
+					<ttAction>
+						<ttType>sendNotification</ttType>
+						<ttNotificationIdentifyer>$outNotif</ttNotificationIdentifyer>
+					</ttAction>	
+				</ttSequenceGroup>
+			</ttActionsGroup>
+		</ttObject>	
+			
+			
+		
+    </ttMacroBody>
+</ttMacro>

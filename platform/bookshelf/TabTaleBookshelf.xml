@@ -1,0 +1,1502 @@
+<?xml version="1.0" ?>
+<ttScenes>
+    <ttMacro name="RunAtInit">
+        <ttMacroParams>
+        </ttMacroParams>
+        <ttMacroBody>
+            <ttOpacity>0</ttOpacity>
+            <ttActionsGroup>
+                <ttTrigger>automatic</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>delay</ttType>
+                        <ttActionDuration>0.10</ttActionDuration>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>fadeIn</ttType>
+                        <ttActionDuration>0</ttActionDuration>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+        </ttMacroBody>
+    </ttMacro>
+    <ttMacro name="StartBookActionGroups">
+        <ttMacroParams>
+            <ttMacroParamDef name="$buttonName"/>
+        </ttMacroParams>
+        <ttMacroBody>
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>setVariable</ttType>
+                        <ttVariable>lockButtons</ttVariable>
+                        <ttOperator>
+                            <ttScript>return 1</ttScript>
+                        </ttOperator>
+                    </ttAction>
+                    <ttAction>
+                        <ttType>logEvent</ttType>
+                        <ttLogEventName>Application Shelf - Go to Current App</ttLogEventName>
+                        <ttLogEventParam>Button Name</ttLogEventParam>
+                        <ttLogEventVal>$buttonName</ttLogEventVal>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>playSound</ttType>
+                        <ttFile>platform/bookshelf/Xbutton.mp3</ttFile>
+                        <ttVolume>0.6</ttVolume>
+                    </ttAction>
+                    <ttAction>
+                        <ttType>scaleXy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                        <ttScaleX>1.13</ttScaleX>
+                        <ttScaleY>0.87</ttScaleY>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>scaleXy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                        <ttScaleX>0.90</ttScaleX>
+                        <ttScaleY>1.10</ttScaleY>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>scaleXy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeBackOut</ttActionEaseMode>
+                        <ttScaleX>1.00</ttScaleX>
+                        <ttScaleY>1.00</ttScaleY>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttAutoActionRunEvery>0.5</ttAutoActionRunEvery>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>delay</ttType>
+                        <ttActionDuration>0.5</ttActionDuration>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>startBook</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+        </ttMacroBody>
+    </ttMacro>
+    <ttMacro name="CloseTabActionGroup">
+        <ttMacroParams>
+            <ttMacroParamDef name="$conditionScript"/>
+            <ttMacroParamDef name="$layerToUnload"/>
+        </ttMacroParams>
+        <ttMacroBody>
+            <ttActionsGroup>
+                <ttTrigger>notification</ttTrigger>
+                <ttNotificationIdentifyer>4010</ttNotificationIdentifyer>
+                <ttOperator>
+                    <ttScript>$conditionScript</ttScript>
+                </ttOperator>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>replaceSpriteWithNextImage</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>unLoadLayer</ttType>
+                        <ttData>$layerToUnload</ttData>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+        </ttMacroBody>
+    </ttMacro>
+    <ttMacro name="OpenTabActionGroup">
+        <ttMacroParams>
+            <ttMacroParamDef name="$triggerNotificationId"/>
+            <ttMacroParamDef name="$conditionScript"/>
+            <ttMacroParamDef name="$layerToLoad"/>
+            <ttMacroParamDef name="$varValueToSet"/>
+        </ttMacroParams>
+        <ttMacroBody>
+            <ttActionsGroup>
+                <ttTrigger>notification</ttTrigger>
+                <ttNotificationIdentifyer>$triggerNotificationId</ttNotificationIdentifyer>
+                <ttOperator>
+                    <ttScript>$conditionScript</ttScript>
+                </ttOperator>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>replaceSpriteWithNextImage</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>setLayerZIndex</ttType>
+                        <ttIntValue>#panelLayerZIndex</ttIntValue>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>setVariable</ttType>
+                        <ttVariable>panelLayerZIndex</ttVariable>
+                        <ttSave>1</ttSave>
+                        <ttOperator>
+                            <ttScript>return panelLayerZIndex+1</ttScript>
+                        </ttOperator>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>loadLayer</ttType>
+                        <ttData>$layerToLoad</ttData>
+                        <ttZIndex>4</ttZIndex>
+                        <ttClearActivityIndicators>YES</ttClearActivityIndicators>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>4010</ttNotificationIdentifyer>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>setVariable</ttType>
+                        <ttVariable>tabIdVar</ttVariable>
+                        <ttOperator>
+                            <ttScript>$varValueToSet</ttScript>
+                        </ttOperator>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+        </ttMacroBody>
+    </ttMacro>
+    <ttMacro name="TouchBeganActionGroup">
+        <ttMacroParams>
+            <ttMacroParamDef name="$notificationIdToSend"/>
+            <ttMacroParamDef name="$tabName"/>
+        </ttMacroParams>
+        <ttMacroBody>
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>$notificationIdToSend</ttNotificationIdentifyer>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>scaleXy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                        <ttScaleX>1.13</ttScaleX>
+                        <ttScaleY>0.87</ttScaleY>
+                    </ttAction>
+                    <ttAction>
+                        <ttType>moveBy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                        <ttFinalPosition x="0" y="-1" />
+                    </ttAction>
+                    <ttAction>
+                        <ttType>playSound</ttType>
+                        <ttFile>platform/bookshelf/tabClicked.mp3</ttFile>
+                        <ttVolume>0.3</ttVolume>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>scaleXy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                        <ttScaleX>0.90</ttScaleX>
+                        <ttScaleY>1.10</ttScaleY>
+                    </ttAction>
+                    <ttAction>
+                        <ttType>moveBy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                        <ttFinalPosition x="0" y="1.5" />
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>scaleXy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeBackOut</ttActionEaseMode>
+                        <ttScaleX>1.00</ttScaleX>
+                        <ttScaleY>1.00</ttScaleY>
+                    </ttAction>
+                    <ttAction>
+                        <ttType>moveBy</ttType>
+                        <ttActionDuration>0.13</ttActionDuration>
+                        <ttActionEaseRate>2.00</ttActionEaseRate>
+                        <ttActionEaseMode>easeBackOut</ttActionEaseMode>
+                        <ttFinalPosition x="0" y="-0.5" />
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>logEvent</ttType>
+                        <ttLogEventName>Application Shelf - Move to Tab</ttLogEventName>
+                        <ttLogEventParam>Tab Name</ttLogEventParam>
+                        <ttLogEventVal>$tabName</ttLogEventVal>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+        </ttMacroBody>
+    </ttMacro>
+    <ttMacro name="ParticlesMacro">
+        <ttMacroParams>
+            <ttMacroParamDef name="$triggerNotificationId"/>
+        </ttMacroParams>
+        <ttMacroBody>
+            <ttType>particles</ttType>
+            <ttParticles>
+                <ttParticlesPlist>platform/bookshelf/bookshelf_head.plist</ttParticlesPlist>
+            </ttParticles>
+            <ttActionsGroup>
+                <ttTrigger>notification</ttTrigger>
+                <ttNotificationIdentifyer>$triggerNotificationId</ttNotificationIdentifyer>
+                <ttOperator>
+                    <ttScript>return (tabIdVar ~= 0)</ttScript>
+                </ttOperator>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>startParticles</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+        </ttMacroBody>
+    </ttMacro>
+    <ttStartScene>0</ttStartScene>
+    <ttMenuStartScene>1</ttMenuStartScene>
+    <ttXmlVerion>1</ttXmlVerion>
+    <ttScene>
+        <ttLayer>
+            <!-- Back Layer (#0)-->
+            <ttName>bookshelfTabBackLayer</ttName>
+            <ttObject>
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttImage>platform/bookshelf/tab_back.png</ttImage>
+                <ttBasePosition x="50" y="50" />
+                <ttActionsGroup>
+                    <ttTrigger>automatic</ttTrigger>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>setVariable</ttType>
+                            <ttVariable>lockButtons</ttVariable>
+                            <ttOperator>
+                                <ttScript>return 0</ttScript>
+                            </ttOperator>
+                        </ttAction>
+                        <ttAction>
+                            <ttType>setVariable</ttType>
+                            <ttVariable>tabIdVar</ttVariable>
+                            <ttOperator>
+                                <ttScript>return 0</ttScript>
+                            </ttOperator>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>setVariable</ttType>
+                            <ttVariable>panelLayerZIndex</ttVariable>
+                            <ttOperator>
+                                <ttConst>30</ttConst>
+                            </ttOperator>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>4001</ttNotificationIdentifyer>
+                    <ttOperator>
+                        <ttScript>return (tabIdVar ~= 4001)</ttScript>
+                    </ttOperator>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>color</ttType>
+                            <ttRedPercentage>0</ttRedPercentage>
+                            <ttGreenPercentage>14</ttGreenPercentage>
+                            <ttBluePercentage>50</ttBluePercentage>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>4002</ttNotificationIdentifyer>
+                    <ttOperator>
+                        <ttScript>return (tabIdVar ~= 4002)</ttScript>
+                    </ttOperator>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>color</ttType>
+                            <ttRedPercentage>28</ttRedPercentage>
+                            <ttGreenPercentage>0</ttGreenPercentage>
+                            <ttBluePercentage>50</ttBluePercentage>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>4003</ttNotificationIdentifyer>
+                    <ttOperator>
+                        <ttScript>return (tabIdVar ~= 4003)</ttScript>
+                    </ttOperator>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>color</ttType>
+                            <ttRedPercentage>50</ttRedPercentage>
+                            <ttGreenPercentage>0</ttGreenPercentage>
+                            <ttBluePercentage>29</ttBluePercentage>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>4004</ttNotificationIdentifyer>
+                    <ttOperator>
+                        <ttScript>return (tabIdVar ~= 4004)</ttScript>
+                    </ttOperator>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>color</ttType>
+                            <ttRedPercentage>69</ttRedPercentage>
+                            <ttGreenPercentage>28</ttGreenPercentage>
+                            <ttBluePercentage>0</ttBluePercentage>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- playbooks tab icons (#1)-->
+            <ttName>tab_playbooks</ttName>
+            <ttLoadAtInit>NO</ttLoadAtInit>
+            <ttObject>
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttType>BookshelfTab</ttType>
+                <ttImage>platform/bookshelf/tab_back.png</ttImage>
+                <ttTabIdVar>4001</ttTabIdVar>
+                <ttTopLeftX>5</ttTopLeftX>
+                <ttTopRightX>95</ttTopRightX>
+                <ttBottomLeftX>5</ttBottomLeftX>
+                <ttBottomRightX>95</ttBottomRightX>
+                <ttTopLeftY>70</ttTopLeftY>
+                <ttTopRightY>70</ttTopRightY>
+                <ttBottomLeftY>20</ttBottomLeftY>
+                <ttBottomRightY>20</ttBottomRightY>
+                <ttRedPercentage>0</ttRedPercentage>
+                <ttGreenPercentage>14</ttGreenPercentage>
+                <ttBluePercentage>50</ttBluePercentage>
+                <ttBlankImage>platform/bookshelf/tab_playbooks_icon_back.png</ttBlankImage>
+                <ttCoverImage>platform/bookshelf/tab_playbooks_icon_front.png</ttCoverImage>
+                <ttHighlightCoverImage>platform/bookshelf/highlight_book_icon_front.png</ttHighlightCoverImage>
+                <ttOpenImage>platform/bookshelf/sticker_open.png</ttOpenImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_free.png</ttPriceTierImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_0099.png</ttPriceTierImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_0199.png</ttPriceTierImage>
+                <ttVisible>NO</ttVisible>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- play&learn tab icons (#2)-->
+            <ttName>tab_toybox</ttName>
+            <ttLoadAtInit>NO</ttLoadAtInit>
+            <ttObject>
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttType>BookshelfTab</ttType>
+                <ttImage>platform/bookshelf/tab_back.png</ttImage>
+                <ttTabIdVar>4002</ttTabIdVar>
+                <ttTopLeftX>5</ttTopLeftX>
+                <ttTopRightX>95</ttTopRightX>
+                <ttBottomLeftX>5</ttBottomLeftX>
+                <ttBottomRightX>95</ttBottomRightX>
+                <ttTopLeftY>70</ttTopLeftY>
+                <ttTopRightY>70</ttTopRightY>
+                <ttBottomLeftY>20</ttBottomLeftY>
+                <ttBottomRightY>20</ttBottomRightY>
+                <ttRedPercentage>28</ttRedPercentage>
+                <ttGreenPercentage>0</ttGreenPercentage>
+                <ttBluePercentage>50</ttBluePercentage>
+                <ttBlankImage>platform/bookshelf/tab_toybox_icon_back.png</ttBlankImage>
+                <ttCoverImage>platform/bookshelf/tab_toybox_icon_front.png</ttCoverImage>
+                <ttHighlightCoverImage>platform/bookshelf/highlight_book_icon_front.png</ttHighlightCoverImage>
+                <ttOpenImage>platform/bookshelf/sticker_open.png</ttOpenImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_free.png</ttPriceTierImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_0099.png</ttPriceTierImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_0199.png</ttPriceTierImage>
+                <ttVisible>NO</ttVisible>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- dressup tab icons (#3)-->
+            <ttName>tab_dressup</ttName>
+            <ttLoadAtInit>NO</ttLoadAtInit>
+            <ttObject>
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttType>BookshelfTab</ttType>
+                <ttImage>platform/bookshelf/tab_back.png</ttImage>
+                <ttTabIdVar>4003</ttTabIdVar>
+                <ttTopLeftX>5</ttTopLeftX>
+                <ttTopRightX>95</ttTopRightX>
+                <ttBottomLeftX>5</ttBottomLeftX>
+                <ttBottomRightX>95</ttBottomRightX>
+                <ttTopLeftY>70</ttTopLeftY>
+                <ttTopRightY>70</ttTopRightY>
+                <ttBottomLeftY>20</ttBottomLeftY>
+                <ttBottomRightY>20</ttBottomRightY>
+                <ttRedPercentage>50</ttRedPercentage>
+                <ttGreenPercentage>0</ttGreenPercentage>
+                <ttBluePercentage>29</ttBluePercentage>
+                <ttBlankImage>platform/bookshelf/tab_dressup_icon_back.png</ttBlankImage>
+                <ttCoverImage>platform/bookshelf/tab_dressup_icon_front.png</ttCoverImage>
+                <ttHighlightCoverImage>platform/bookshelf/highlight_book_icon_front.png</ttHighlightCoverImage>
+                <ttOpenImage>platform/bookshelf/sticker_open.png</ttOpenImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_free.png</ttPriceTierImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_0099.png</ttPriceTierImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_0199.png</ttPriceTierImage>
+                <ttVisible>NO</ttVisible>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- crazychef tab icons (#4)-->
+            <ttName>tab_crazychef</ttName>
+            <ttLoadAtInit>NO</ttLoadAtInit>
+            <ttObject>
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttType>BookshelfTab</ttType>
+                <ttImage>platform/bookshelf/tab_back.png</ttImage>
+                <ttTabIdVar>4004</ttTabIdVar>
+                <ttTopLeftX>5</ttTopLeftX>
+                <ttTopRightX>95</ttTopRightX>
+                <ttBottomLeftX>5</ttBottomLeftX>
+                <ttBottomRightX>95</ttBottomRightX>
+                <ttTopLeftY>70</ttTopLeftY>
+                <ttTopRightY>70</ttTopRightY>
+                <ttBottomLeftY>20</ttBottomLeftY>
+                <ttBottomRightY>20</ttBottomRightY>
+                <ttRedPercentage>69</ttRedPercentage>
+                <ttGreenPercentage>28</ttGreenPercentage>
+                <ttBluePercentage>0</ttBluePercentage>
+                <ttBlankImage>platform/bookshelf/tab_crazychef_icon_back.png</ttBlankImage>
+                <ttCoverImage>platform/bookshelf/tab_crazychef_icon_front.png</ttCoverImage>
+                <ttHighlightCoverImage>platform/bookshelf/highlight_book_icon_front.png</ttHighlightCoverImage>
+                <ttOpenImage>platform/bookshelf/sticker_open.png</ttOpenImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_free.png</ttPriceTierImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_0099.png</ttPriceTierImage>
+                <ttPriceTierImage>platform/bookshelf/sticker_price_0199.png</ttPriceTierImage>
+                <ttVisible>NO</ttVisible>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- Background Layer (#5)-->
+            <ttName>bookshelfBackgroundLayer</ttName>
+            <ttObject>
+                <ttImage>platform/bookshelf/background.png</ttImage>
+                <ttIsBackground>YES</ttIsBackground>
+                <ttBasePosition x="50" y="50" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttActionsGroup>
+                    <ttTrigger>automatic</ttTrigger>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>enableTouch</ttType>
+                        </ttAction>
+                        <ttAction>
+                            <ttType>setMultiTouch</ttType>
+                            <ttIntValue>0</ttIntValue>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- playbooks tab panel (#6)-->
+            <ttName>tabpanel_playbooks</ttName>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_playbooks_panel.png</ttImage>
+                <ttBasePosition x="50" y="50" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_playbooks_head_on.png</ttImage>
+                <ttBasePosition x="16" y="90" />
+                <ttMacroInvoke macro_name="ParticlesMacro">
+                    <ttMacroParam name="$triggerNotificationId" value="4001"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_playbooks_head_off.png</ttImage>
+                <ttImage>platform/bookshelf/tab_playbooks_head_on.png</ttImage>	
+                <ttBasePosition x="16" y="90" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="CloseTabActionGroup">
+                    <ttMacroParam name="$conditionScript" value="return (tabIdVar == 4001)"/>
+                    <ttMacroParam name="$layerToUnload" value="tab_playbooks"/>
+                </ttMacroInvoke>
+                <ttMacroInvoke macro_name="OpenTabActionGroup">
+                    <ttMacroParam name="$triggerNotificationId" value="4001"/>
+                    <ttMacroParam name="$conditionScript" value="return (tabIdVar ~= 4001)"/>
+                    <ttMacroParam name="$layerToLoad" value="tab_playbooks"/>
+                    <ttMacroParam name="$varValueToSet" value="return 4001"/>
+                </ttMacroInvoke>
+                <ttMacroInvoke macro_name="TouchBeganActionGroup">
+                    <ttMacroParam name="$notificationIdToSend" value="4001"/>
+                    <ttMacroParam name="$tabName" value="playbooks"/>
+                </ttMacroInvoke>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- toybox tab panel (#7)-->
+            <ttName>tabpanel_toybox</ttName>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_toybox_panel.png</ttImage>
+                <ttBasePosition x="50" y="50" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_toybox_head_on.png</ttImage>
+                <ttBasePosition x="39.1367" y="90" />
+                <ttMacroInvoke macro_name="ParticlesMacro">
+                    <ttMacroParam name="$triggerNotificationId" value="4002"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_toybox_head_off.png</ttImage>
+                <ttImage>platform/bookshelf/tab_toybox_head_on.png</ttImage>
+                <ttBasePosition x="39.1367" y="90" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="CloseTabActionGroup">
+                    <ttMacroParam name="$conditionScript" value="return (tabIdVar == 4002)"/>
+                    <ttMacroParam name="$layerToUnload" value="tab_toybox"/>
+                </ttMacroInvoke>
+                <ttMacroInvoke macro_name="OpenTabActionGroup">
+                    <ttMacroParam name="$triggerNotificationId" value="4002"/>
+                    <ttMacroParam name="$conditionScript" value="return (tabIdVar ~= 4002)"/>
+                    <ttMacroParam name="$layerToLoad" value="tab_toybox"/>
+                    <ttMacroParam name="$varValueToSet" value="return 4002"/>
+                </ttMacroInvoke>
+                <ttMacroInvoke macro_name="TouchBeganActionGroup">
+                    <ttMacroParam name="$notificationIdToSend" value="4002"/>
+                    <ttMacroParam name="$tabName" value="toybox"/>
+                </ttMacroInvoke>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- dressup tab panel (#8)-->
+            <ttName>tabpanel_dressup</ttName>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_dressup_panel.png</ttImage>
+                <ttBasePosition x="50" y="50" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_dressup_head_on.png</ttImage>
+                <ttBasePosition x="63.2813" y="90" />
+                <ttMacroInvoke macro_name="ParticlesMacro">
+                    <ttMacroParam name="$triggerNotificationId" value="4003"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_dressup_head_off.png</ttImage>
+                <ttImage>platform/bookshelf/tab_dressup_head_on.png</ttImage>
+                <ttBasePosition x="62.7" y="90" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="CloseTabActionGroup">
+                    <ttMacroParam name="$conditionScript" value="return (tabIdVar == 4003)"/>
+                    <ttMacroParam name="$layerToUnload" value="tab_dressup"/>
+                </ttMacroInvoke>
+                <ttMacroInvoke macro_name="OpenTabActionGroup">
+                    <ttMacroParam name="$triggerNotificationId" value="4003"/>
+                    <ttMacroParam name="$conditionScript" value="return (tabIdVar ~= 4003)"/>
+                    <ttMacroParam name="$layerToLoad" value="tab_dressup"/>
+                    <ttMacroParam name="$varValueToSet" value="return 4003"/>
+                </ttMacroInvoke>
+                <ttMacroInvoke macro_name="TouchBeganActionGroup">
+                    <ttMacroParam name="$notificationIdToSend" value="4003"/>
+                    <ttMacroParam name="$tabName" value="dressup"/>
+                </ttMacroInvoke>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- crazychef tab panel (#9)-->
+            <ttName>tabpanel_crazychef</ttName>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_crazychef_panel.png</ttImage>
+                <ttBasePosition x="50" y="50" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_crazychef_head_on.png</ttImage>
+                <ttBasePosition x="86.5" y="90" />
+                <ttMacroInvoke macro_name="ParticlesMacro">
+                    <ttMacroParam name="$triggerNotificationId" value="4004"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/tab_crazychef_head_off.png</ttImage>
+                <ttImage>platform/bookshelf/tab_crazychef_head_on.png</ttImage>
+                <ttBasePosition x="86.5" y="90" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="CloseTabActionGroup">
+                    <ttMacroParam name="$conditionScript" value="return (tabIdVar == 4004)"/>
+                    <ttMacroParam name="$layerToUnload" value="tab_crazychef"/>
+                </ttMacroInvoke>
+                <ttMacroInvoke macro_name="OpenTabActionGroup">
+                    <ttMacroParam name="$triggerNotificationId" value="4004"/>
+                    <ttMacroParam name="$conditionScript" value="return (tabIdVar ~= 4004)"/>
+                    <ttMacroParam name="$layerToLoad" value="tab_crazychef"/>
+                    <ttMacroParam name="$varValueToSet" value="return 4004"/>
+                </ttMacroInvoke>
+                <ttMacroInvoke macro_name="TouchBeganActionGroup">
+                    <ttMacroParam name="$notificationIdToSend" value="4004"/>
+                    <ttMacroParam name="$tabName" value="crazychef"/>
+                </ttMacroInvoke>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- Logo Layer (#10)-->
+            <ttName>bookshelfLogoLayer</ttName>
+            <ttBasePosition x="9.5" y="20.5" />
+            <ttMacro name="LogoAnim_t">
+                <ttMacroParams>
+                    <ttMacroParamDef name="$rotateAngle1"/>
+                    <ttMacroParamDef name="$rotateAngle2"/>
+                </ttMacroParams>
+                <ttMacroBody>
+                    <ttActionsGroup>
+                        <ttTrigger>notification</ttTrigger>
+                        <ttNotificationIdentifyer>4021</ttNotificationIdentifyer>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>rotate</ttType>
+                                <ttActionDuration>0.40</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttActionRotateAngle>$rotateAngle1</ttActionRotateAngle>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>rotate</ttType>
+                                <ttActionDuration>0.40</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttActionRotateAngle>$rotateAngle2</ttActionRotateAngle>
+                            </ttAction>
+                        </ttSequenceGroup>
+                    </ttActionsGroup>
+                </ttMacroBody>
+            </ttMacro>
+            <ttMacro name="LogoAnim_eye1">
+                <ttMacroParams>
+                </ttMacroParams>
+                <ttMacroBody>
+                    <ttActionsGroup>
+                        <ttTrigger>notification</ttTrigger>
+                        <ttNotificationIdentifyer>4020</ttNotificationIdentifyer>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>moveBy</ttType>
+                                <ttActionDuration>0.25</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttFinalPosition x="1.2" y="0" />
+                            </ttAction>
+                            <ttAction>
+                                <ttType>sendNotification</ttType>
+                                <ttNotificationIdentifyer>4022</ttNotificationIdentifyer>
+                            </ttAction>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.25</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>0.70</ttScaleX>
+                                <ttScaleY>1.21</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>delay</ttType>
+                                <ttActionDuration>0.28</ttActionDuration>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.22</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>1.00</ttScaleY>
+                            </ttAction>
+                            <ttAction>
+                                <ttType>moveBy</ttType>
+                                <ttActionDuration>0.22</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttFinalPosition x="-1.2" y="0" />
+                            </ttAction>
+                        </ttSequenceGroup>
+                    </ttActionsGroup>
+                </ttMacroBody>
+            </ttMacro>
+            <ttMacro name="LogoAnim_eye2">
+                <ttMacroParams>
+                </ttMacroParams>
+                <ttMacroBody>
+                    <ttActionsGroup>
+                        <ttTrigger>notification</ttTrigger>
+                        <ttNotificationIdentifyer>4025</ttNotificationIdentifyer>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>moveBy</ttType>
+                                <ttActionDuration>0.27</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttFinalPosition x="0" y="-1.3" />
+                            </ttAction>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.27</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>0.75</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>0.75</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>1.00</ttScaleY>
+                            </ttAction>
+                            <ttAction>
+                                <ttType>moveBy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttFinalPosition x="0" y="1.3" />
+                            </ttAction>
+                        </ttSequenceGroup>
+                    </ttActionsGroup>
+                </ttMacroBody>
+            </ttMacro>
+            <ttMacro name="LogoAnim_eyeBall1">
+                <ttMacroParams>
+                </ttMacroParams>
+                <ttMacroBody>
+                    <ttActionsGroup>
+                        <ttTrigger>notification</ttTrigger>
+                        <ttNotificationIdentifyer>4021</ttNotificationIdentifyer>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.14</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.80</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.14</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>0.85</ttScaleX>
+                                <ttScaleY>1.25</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.17</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeBackOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>1.00</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>delay</ttType>
+                                <ttActionDuration>0.5</ttActionDuration>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>0.75</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>0.75</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                    </ttActionsGroup>
+                </ttMacroBody>
+            </ttMacro>
+            <ttMacro name="LogoAnim_eyeBall2">
+                <ttMacroParams>
+                </ttMacroParams>
+                <ttMacroBody>
+                    <ttActionsGroup>
+                        <ttTrigger>notification</ttTrigger>
+                        <ttNotificationIdentifyer>4023</ttNotificationIdentifyer>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.25</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.10</ttScaleX>
+                                <ttScaleY>1.15</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>delay</ttType>
+                                <ttActionDuration>0.10</ttActionDuration>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.25</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>1.00</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>delay</ttType>
+                                <ttActionDuration>0.40</ttActionDuration>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>0.75</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>1.00</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                    </ttActionsGroup>
+                </ttMacroBody>
+            </ttMacro>
+            <ttMacro name="LogoAnim_pupil1">
+                <ttMacroParams>
+                </ttMacroParams>
+                <ttMacroBody>
+                    <ttActionsGroup>
+                        <ttTrigger>notification</ttTrigger>
+                        <ttNotificationIdentifyer>4023</ttNotificationIdentifyer>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.25</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.10</ttScaleX>
+                                <ttScaleY>1.15</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>delay</ttType>
+                                <ttActionDuration>0.10</ttActionDuration>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.25</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>1.00</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>delay</ttType>
+                                <ttActionDuration>0.40</ttActionDuration>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>0.75</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                    </ttActionsGroup>
+                </ttMacroBody>
+            </ttMacro>
+            <ttMacro name="LogoAnim_pupil2">
+                <ttMacroParams>
+                    <ttMacroParamDef name="$soundFile1"/>
+                    <ttMacroParamDef name="$soundFile2"/>
+                </ttMacroParams>
+                <ttMacroBody>
+                    <ttActionsGroup>
+                        <ttTrigger>notification</ttTrigger>
+                        <ttNotificationIdentifyer>4021</ttNotificationIdentifyer>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>delay</ttType>
+                                <ttActionDuration>1</ttActionDuration>
+                            </ttAction>
+                            <ttAction>
+                                <ttType>playSound</ttType>
+                                <ttFile>$soundFile1</ttFile>
+                                <ttVolume>0.8</ttVolume>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                            <ttAction>
+                                <ttType>playSound</ttType>
+                                <ttFile>$soundFile2</ttFile>
+                                <ttVolume>0.27</ttVolume>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>1.00</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.20</ttScaleX>
+                                <ttScaleY>0.10</ttScaleY>
+                            </ttAction>
+                            <ttAction>
+                                <ttType>playSound</ttType>
+                                <ttFile>$soundFile2</ttFile>
+                                <ttVolume>0.27</ttVolume>
+                            </ttAction>
+                        </ttSequenceGroup>
+                        <ttSequenceGroup>
+                            <ttAction>
+                                <ttType>scaleXy</ttType>
+                                <ttActionDuration>0.15</ttActionDuration>
+                                <ttActionEaseRate>2.00</ttActionEaseRate>
+                                <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                                <ttScaleX>1.00</ttScaleX>
+                                <ttScaleY>1.00</ttScaleY>
+                            </ttAction>
+                        </ttSequenceGroup>
+                    </ttActionsGroup>
+                </ttMacroBody>
+            </ttMacro>
+            <ttObject>
+                <ttImage>platform/bookshelf/logo/logo_blank.png</ttImage>
+                <ttBasePosition x="6.54" y="94.32" />
+				<ttVisible>NO</ttVisible>
+                <ttActionsGroup>
+                    <ttTrigger>automatic</ttTrigger>
+					<ttApplyOn>layer</ttApplyOn>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>rotate</ttType>
+                            <ttActionRotateAngle>-20</ttActionRotateAngle>
+                        </ttAction>
+                        <ttAction>
+                            <ttType>moveBy</ttType>
+                            <ttActionDuration>0</ttActionDuration>
+                            <ttFinalPosition x="-0.5" y="-0.6" />
+                        </ttAction>	
+                        <ttAction>
+                            <ttType>scale</ttType>
+                            <ttActionDuration>0</ttActionDuration>
+                            <ttScaleTo>0.83</ttScaleTo>
+                        </ttAction>				
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>automatic</ttTrigger>
+					<ttAutoActionRunEvery>12</ttAutoActionRunEvery>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>delay</ttType>
+                            <ttActionDuration>3</ttActionDuration>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>sendNotification</ttType>
+                            <ttNotificationIdentifyer>4020</ttNotificationIdentifyer>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>delay</ttType>
+                            <ttActionDuration>4</ttActionDuration>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>sendNotification</ttType>
+                            <ttNotificationIdentifyer>4025</ttNotificationIdentifyer>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>delay</ttType>
+                            <ttActionDuration>4</ttActionDuration>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>sendNotification</ttType>
+                            <ttNotificationIdentifyer>4023</ttNotificationIdentifyer>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>onTouchesBegan</ttTrigger>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>sendNotification</ttType>
+                            <ttNotificationIdentifyer>4021</ttNotificationIdentifyer>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/logo/logo_t_left.png</ttImage>
+                <ttAnchorPositionX>0.76</ttAnchorPositionX>
+                <ttAnchorPositionY>0.74</ttAnchorPositionY>
+                <ttBasePosition x="5.54" y="96.32" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="LogoAnim_t">
+                    <ttMacroParam name="$rotateAngle1" value="20.00"/>
+                    <ttMacroParam name="$rotateAngle2" value="-20.00"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/logo/logo_t_right.png</ttImage>
+                <ttAnchorPositionX>0.24</ttAnchorPositionX>
+                <ttAnchorPositionY>0.74</ttAnchorPositionY>
+                <ttBasePosition x="7.59" y="96.32" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="LogoAnim_t">
+                    <ttMacroParam name="$rotateAngle1" value="-20.00"/>
+                    <ttMacroParam name="$rotateAngle2" value="20.00"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/logo/logo_mask.png</ttImage>
+                <ttBasePosition x="6.52" y="96.11" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>4022</ttNotificationIdentifyer>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.25</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttScaleX>0.75</ttScaleX>
+                            <ttScaleY>1.20</ttScaleY>
+                        </ttAction>
+                        <ttAction>
+                            <ttType>moveBy</ttType>
+                            <ttActionDuration>0.25</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttFinalPosition x="0.8" y="0" />
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>delay</ttType>
+                            <ttActionDuration>0.30</ttActionDuration>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.15</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttScaleX>1.00</ttScaleX>
+                            <ttScaleY>1.00</ttScaleY>
+                        </ttAction>
+                        <ttAction>
+                            <ttType>moveBy</ttType>
+                            <ttActionDuration>0.20</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttFinalPosition x="-0.8" y="0" />
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>4025</ttNotificationIdentifyer>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.25</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttScaleX>1.00</ttScaleX>
+                            <ttScaleY>0.80</ttScaleY>
+                        </ttAction>
+                        <ttAction>
+                            <ttType>moveBy</ttType>
+                            <ttActionDuration>0.25</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttFinalPosition x="0" y="-0.8" />
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>delay</ttType>
+                            <ttActionDuration>0.45</ttActionDuration>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>moveBy</ttType>
+                            <ttActionDuration>0.25</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttFinalPosition x="0" y="0.8" />
+                        </ttAction>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.25</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttScaleX>1.00</ttScaleX>
+                            <ttScaleY>1.00</ttScaleY>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>4021</ttNotificationIdentifyer>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.14</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttScaleX>1.20</ttScaleX>
+                            <ttScaleY>0.80</ttScaleY>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.14</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttScaleX>0.85</ttScaleX>
+                            <ttScaleY>1.25</ttScaleY>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.17</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeBackOut</ttActionEaseMode>
+                            <ttScaleX>1.00</ttScaleX>
+                            <ttScaleY>1.00</ttScaleY>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>4023</ttNotificationIdentifyer>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.25</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttScaleX>0.85</ttScaleX>
+                            <ttScaleY>1.15</ttScaleY>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>delay</ttType>
+                            <ttActionDuration>0.10</ttActionDuration>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleXy</ttType>
+                            <ttActionDuration>0.25</ttActionDuration>
+                            <ttActionEaseRate>2.00</ttActionEaseRate>
+                            <ttActionEaseMode>easeInOut</ttActionEaseMode>
+                            <ttScaleX>1.00</ttScaleX>
+                            <ttScaleY>1.00</ttScaleY>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/logo/logo_eye_left.png</ttImage>
+                <ttBasePosition x="5.74" y="96.11" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="LogoAnim_eye1"/>
+                <ttMacroInvoke macro_name="LogoAnim_eye2"/>
+                <ttMacroInvoke macro_name="LogoAnim_eyeBall1"/>
+                <ttMacroInvoke macro_name="LogoAnim_eyeBall2"/>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/logo/logo_eye_right.png</ttImage>
+                <ttBasePosition x="7.30" y="96.11" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="LogoAnim_eye1"/>
+                <ttMacroInvoke macro_name="LogoAnim_eye2"/>
+                <ttMacroInvoke macro_name="LogoAnim_eyeBall1"/>
+                <ttMacroInvoke macro_name="LogoAnim_eyeBall2"/>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/logo/logo_pupil_right.png</ttImage>
+                <ttBasePosition x="7.30" y="96.37" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="LogoAnim_eye1"/>
+                <ttMacroInvoke macro_name="LogoAnim_eye2"/>
+                <ttMacroInvoke macro_name="LogoAnim_pupil1"/>
+                <ttMacroInvoke macro_name="LogoAnim_pupil2">
+                    <ttMacroParam name="$soundFile1" value="platform/bookshelf/logo/poing.mp3"/>
+                    <ttMacroParam name="$soundFile2" value="platform/bookshelf/logo/blink.mp3"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/logo/logo_pupil_left.png</ttImage>
+                <ttBasePosition x="5.73" y="96.37" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="LogoAnim_eye1"/>
+                <ttMacroInvoke macro_name="LogoAnim_eye2"/>
+                <ttMacroInvoke macro_name="LogoAnim_pupil1"/>
+                <ttMacroInvoke macro_name="LogoAnim_pupil2">
+                    <ttMacroParam name="$soundFile1" value=""/>
+                    <ttMacroParam name="$soundFile2" value=""/>
+                </ttMacroInvoke>
+            </ttObject>
+        </ttLayer>
+        <ttLayer>
+            <!-- Buttons Layer (#11)-->
+            <ttObject>
+                <ttImage>platform/bookshelf/out.png</ttImage>
+                <ttBasePosition x="96.4" y="97.2" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="StartBookActionGroups">
+                    <ttMacroParam name="$buttonName" value="Close Button"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/arrow.png</ttImage>
+                <ttAnchorPositionX>0.00</ttAnchorPositionX>
+                <ttAnchorPositionY>0.30</ttAnchorPositionY>
+                <ttBasePosition x="86.5" y="3" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttMacroInvoke macro_name="StartBookActionGroups">
+                    <ttMacroParam name="$buttonName" value="Next Button"/>
+                </ttMacroInvoke>
+            </ttObject>
+            <ttObject>
+                <ttImage>platform/bookshelf/info.png</ttImage>
+                <ttBasePosition x="7.5" y="5.5" />
+                <ttMacroInvoke macro_name="RunAtInit"/>
+                <ttActionsGroup>
+                    <ttTrigger>automatic</ttTrigger>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>setLayerZIndex</ttType>
+                            <ttIntValue>1000</ttIntValue>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                <ttActionsGroup>
+                    <ttTrigger>onTouchesBegan</ttTrigger>
+                    <ttOperator>
+                        <ttScript>return (lockButtons == 0)</ttScript>
+                    </ttOperator>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>logEvent</ttType>
+                            <ttLogEventName>Application Shelf - Terms Of Use Button Clicked</ttLogEventName>
+                        </ttAction>
+                        <ttAction>
+                            <ttType>playSound</ttType>
+                            <ttFile>platform/bookshelf/Xbutton.mp3</ttFile>
+                            <ttVolume>0.6</ttVolume>
+                        </ttAction>
+                        <ttAction>
+                            <ttType>webView</ttType>
+                            <ttWebViewURL>http://tabtale.com/terms-of-use/</ttWebViewURL>
+                            <ttWebViewWidth>100</ttWebViewWidth>
+                            <ttWebViewHeight>96.5</ttWebViewHeight>
+                            <ttWebViewPosition x="50" y="45.60" />
+                            <ttWebViewCloseButtonImage>platform/bookshelf/close_bar.jpg</ttWebViewCloseButtonImage>
+                            <ttWebViewCloseSound>platform/bookshelf/Xbutton.mp3</ttWebViewCloseSound>
+                            <ttWebViewCloseButtonPosition x="50" y="97"/>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+            </ttObject>
+        </ttLayer>
+    </ttScene>
+</ttScenes>

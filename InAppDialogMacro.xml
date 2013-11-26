@@ -1,0 +1,496 @@
+<?xml version="1.0" ?>
+
+<ttMacro name="popUpButton">
+    <ttMacroParams>
+        <ttMacroParamDef name="$triggerDelay"/>
+        <ttMacroParamDef name="$scaleTo"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttActionsGroup>
+            <ttTrigger>notification</ttTrigger>
+            <ttNotificationIdentifyer>2908</ttNotificationIdentifyer>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>delay</ttType>
+                    <ttActionDuration>$triggerDelay</ttActionDuration>
+                </ttAction>
+            </ttSequenceGroup>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>scale</ttType>
+                    <ttScaleTo>$scaleTo</ttScaleTo>
+                    <ttActionDuration>0.5</ttActionDuration>
+                    <ttActionEaseMode>easeBackOut</ttActionEaseMode>
+                    <ttActionEaseRate>2</ttActionEaseRate>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="setProductId">
+    <ttMacroParams>
+        <ttMacroParamDef name="$theProductId"/>
+        <ttMacroParamDef name="$theProductString"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttActionsGroup>
+            <ttOperator>
+                <ttType>equal</ttType>
+                <ttOperator>
+                    <ttVariable>paintSparkleProduct</ttVariable>
+                </ttOperator>
+                <ttOperator>
+                    <ttConst>$theProductId</ttConst>
+                </ttOperator>
+            </ttOperator>
+            <ttTrigger>onTouchesBegan</ttTrigger>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>playSound</ttType>
+                    <ttFile>sounds/p5_magicshoe1.mp3</ttFile>
+                </ttAction>
+            </ttSequenceGroup>
+            <!--ttSequenceGroup>
+                <ttAction>
+                    <ttType>sendNotification</ttType>
+                    <ttNotificationIdentifyer>2909</ttNotificationIdentifyer>
+                </ttAction>
+            </ttSequenceGroup-->
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>inAppPurchase</ttType>
+                    <ttData>$theProductString</ttData>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+    </ttMacroBody>
+</ttMacro>
+
+
+<ttMacro name="inAppFadeIfPurchased">
+    <ttMacroParams>
+        <ttMacroParamDef name="$theProductId"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttActionsGroup>
+            <ttTrigger>notification</ttTrigger>
+            <ttNotificationIdentifyer>2908</ttNotificationIdentifyer>
+            <ttOperator>
+                <ttType>equal</ttType>
+                <ttOperator>
+                    <ttVariable>$theProductId</ttVariable>
+                </ttOperator>
+                <ttOperator>
+                    <ttConst>1</ttConst>
+                </ttOperator>
+            </ttOperator>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>fadeTo</ttType>
+                    <ttOpacity>130</ttOpacity>
+                </ttAction>
+                <ttAction>
+                    <ttType>disableObject</ttType>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+        <ttActionsGroup>
+            <!-- listen to close dialog and enable the object (for the next time user open this dialog)-->
+            <ttTrigger>notification</ttTrigger>
+            <ttNotificationIdentifyer>2909</ttNotificationIdentifyer>
+            <ttSequenceGroup>
+                <ttAction>
+                    <ttType>enableObject</ttType>
+                </ttAction>
+            </ttSequenceGroup>
+        </ttActionsGroup>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="inAppBuyObject">
+    <ttMacroParams>
+        <ttMacroParamDef name="$buttonImage"/>
+        <ttMacroParamDef name="$posX"/>
+        <ttMacroParamDef name="$posY"/>
+        <ttMacroParamDef name="$inAppProductId"/>
+        <ttMacroParamDef name="$actionType"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttObject>
+            <ttImage>$buttonImage</ttImage>
+            <ttBasePosition x="$posX" y="$posY" />
+            <ttScale>0</ttScale>
+            <!-- block all touches -->
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>playSound</ttType>
+                        <ttFile>sounds/p5_magicshoe1.mp3</ttFile>
+                    </ttAction>
+                </ttSequenceGroup>
+                <!--ttSequenceGroup>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>2909</ttNotificationIdentifyer>
+                    </ttAction>
+                </ttSequenceGroup-->
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>$actionType</ttType>
+                        <ttData>$inAppProductId</ttData>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttMacroInvoke macro_name="popUpButton">
+                <ttMacroParam name="$triggerDelay" value="0.5"/>
+                <ttMacroParam name="$scaleTo" value="1.0"/>
+            </ttMacroInvoke>
+            <ttMacroInvoke macro_name="inAppFadeIfPurchased">
+                <ttMacroParam name="$theProductId" value="$inAppProductId"/>
+            </ttMacroInvoke>
+        </ttObject>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="inAppBuyObjectExt">
+    <ttMacroParams>
+        <ttMacroParamDef name="$buttonImage"/>
+        <ttMacroParamDef name="$posX"/>
+        <ttMacroParamDef name="$posY"/>
+        <ttMacroParamDef name="$productId2"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttObject>
+            <ttImage>$buttonImage</ttImage>
+            <ttBasePosition x="$posX" y="$posY" />
+            <ttScale>0</ttScale>
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>playSound</ttType>
+                        <ttFile>sounds/p5_magicshoe1.mp3</ttFile>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>inAppPurchase</ttType>
+                        <ttData>$productId2</ttData>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttMacroInvoke macro_name="popUpButton">
+                <ttMacroParam name="$triggerDelay" value="0.5"/>
+                <ttMacroParam name="$scaleTo" value="1.0"/>
+            </ttMacroInvoke>
+            <ttMacroInvoke macro_name="inAppFadeIfPurchased">
+                <ttMacroParam name="$theProductId" value="$productId2"/>
+            </ttMacroInvoke>
+        </ttObject>
+    </ttMacroBody>
+</ttMacro>
+
+
+<ttMacro name="inAppRestoreObject">
+    <ttMacroParams>
+        <ttMacroParamDef name="$buttonImage"/>
+        <ttMacroParamDef name="$posX"/>
+        <ttMacroParamDef name="$posY"/>
+        <ttMacroParamDef name="$actionType"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttObject>
+            <ttImage>$buttonImage</ttImage>
+            <ttBasePosition x="$posX" y="$posY" />
+            <ttScale>0</ttScale>
+            <!-- block all touches -->
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>2909</ttNotificationIdentifyer>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>$actionType</ttType>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttMacroInvoke macro_name="popUpButton">
+                <ttMacroParam name="$triggerDelay" value="0.5"/>
+                <ttMacroParam name="$scaleTo" value="1.0"/>
+            </ttMacroInvoke>
+            <ttMacroInvoke macro_name="inAppFadeIfPurchased">
+                <ttMacroParam name="$theProductId" value="$inAppProductId"/>
+            </ttMacroInvoke>
+        </ttObject>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="inAppPriceOrDescription">
+    <ttMacroParams>
+        <ttMacroParamDef name="$posX"/>
+        <ttMacroParamDef name="$posY"/>
+        <ttMacroParamDef name="$inAppProductId"/>
+        <ttMacroParamDef name="$infoType"/>
+        <ttMacroParamDef name="$lableWidth"/>
+        <ttMacroParamDef name="$fontType"/>
+        <ttMacroParamDef name="$red"/>
+        <ttMacroParamDef name="$green"/>
+        <ttMacroParamDef name="$blue"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttObject>
+            <ttImage>$infoType</ttImage>
+            <ttType>lable</ttType>
+            <ttBasePosition x="$posX" y="$posY" />
+            <ttScale>0</ttScale>
+            <ttFontType>$fontType</ttFontType>
+            <ttRedPercentage>$red</ttRedPercentage>
+            <ttGreenPercentage>$green</ttGreenPercentage>
+            <ttBluePercentage>$blue</ttBluePercentage>
+            <!-- block all touches -->
+            <ttActionsGroup>
+                <ttTrigger>automatic</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>inAppInfo</ttType>
+                        <ttInfoWidth>$lableWidth</ttInfoWidth>
+                        <ttInAppProductId>$inAppProductId</ttInAppProductId>
+                        <ttInfoType>$infoType</ttInfoType>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttMacroInvoke macro_name="popUpButton">
+                <ttMacroParam name="$triggerDelay" value="0.5"/>
+                <ttMacroParam name="$scaleTo" value="0.5"/>
+            </ttMacroInvoke>
+            <ttMacroInvoke macro_name="inAppFadeIfPurchased">
+                <ttMacroParam name="$theProductId" value="$inAppProductId"/>
+            </ttMacroInvoke>
+        </ttObject>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="inAppBackgroundObject">
+    <ttMacroParams>
+        <ttMacroParamDef name="$image"/>
+        <ttMacroParamDef name="$posX"/>
+        <ttMacroParamDef name="$posY"/>
+        <ttMacroParamDef name="$scaleTo"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttObject>
+            <ttImage>$image</ttImage>
+            <ttBasePosition x="$posX" y="$posY" />
+            <ttTopRightX>100</ttTopRightX>
+            <ttBottomRightX>100</ttBottomRightX>
+            <ttTopLeftY>100</ttTopLeftY>
+            <ttTopRightY>100</ttTopRightY>
+            <ttScale>1</ttScale>
+            <!-- block all touches -->
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+            </ttActionsGroup>
+            <!-- open dialog notification-->
+            <ttMacroInvoke macro_name="popUpButton">
+                <ttMacroParam name="$triggerDelay" value="0"/>
+                <ttMacroParam name="$scaleTo" value="$scaleTo"/>
+            </ttMacroInvoke>
+        </ttObject>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="inAppCloseObject">
+    <ttMacroParams>
+        <ttMacroParamDef name="$image"/>
+        <ttMacroParamDef name="$posX"/>
+        <ttMacroParamDef name="$posY"/>
+        <ttMacroParamDef name="$clickSound"/>
+    </ttMacroParams>
+    <ttMacroBody>
+        <ttObject>
+            <ttImage>$image</ttImage>
+            <ttBasePosition x="$posX" y="$posY" />
+            <ttScale>0</ttScale>
+            <ttActionsGroup>
+                <ttTrigger>onTouchesBegan</ttTrigger>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>2909</ttNotificationIdentifyer>
+                    </ttAction>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>2033</ttNotificationIdentifyer>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttActionsGroup>
+                <ttTrigger>notification</ttTrigger>
+                <ttNotificationIdentifyer>2034</ttNotificationIdentifyer>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>2909</ttNotificationIdentifyer>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttActionsGroup>
+                <ttTrigger>notification</ttTrigger>
+                <ttNotificationIdentifyer>2909</ttNotificationIdentifyer>
+                <ttApplyOn>layer</ttApplyOn>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>playSound</ttType>
+                        <ttFile>$clickSound</ttFile>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>delay</ttType>
+                        <ttActionDuration>0.2</ttActionDuration>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>scale</ttType>
+                        <ttScaleTo>0</ttScaleTo>
+                        <ttActionDuration>0.5</ttActionDuration>
+                        <ttActionEaseMode>easeBackIn</ttActionEaseMode>
+                        <ttActionEaseRate>2</ttActionEaseRate>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>sendNotification</ttType>
+                        <ttNotificationIdentifyer>2910</ttNotificationIdentifyer>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <ttActionsGroup>
+                <ttTrigger>notification</ttTrigger>
+                <ttNotificationIdentifyer>2910</ttNotificationIdentifyer>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>delay</ttType>
+                        <ttActionDuration>1</ttActionDuration>
+                    </ttAction>
+                </ttSequenceGroup>
+                <ttSequenceGroup>
+                    <ttAction>
+                        <ttType>unLoadLayer</ttType>
+                        <ttData>inAppPurchaseLayer</ttData>
+                    </ttAction>
+                </ttSequenceGroup>
+            </ttActionsGroup>
+            <!-- open dialog notification-->
+            <ttMacroInvoke macro_name="popUpButton">
+                <ttMacroParam name="$triggerDelay" value="1"/>
+                <ttMacroParam name="$scaleTo" value="1"/>
+            </ttMacroInvoke>
+        </ttObject>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="inAppDialogWrapper">
+    <ttMacroBody>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_animals"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_letters"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_legends"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_dinosaurs"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_sea"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_cars"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_fairyTails"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_colorpencils"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_dolls_and_teddy"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_toys"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_christmas"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_monsters"/></ttMacroInvoke>
+    <ttMacroInvoke macro_name="inAppDialog"><ttMacroParam name="$productId" value="inAppProduct_textures"/></ttMacroInvoke>
+    </ttMacroBody>
+</ttMacro>
+
+<ttMacro name="inAppDialog">
+    <ttMacroParams>
+        <ttMacroParamDef name="$productId"/>
+    </ttMacroParams>
+        <ttMacroBody>
+        <ttInAppDialog>
+            <ttInAppID>$productId</ttInAppID>
+            <ttObject>
+                <ttImage>platform/games/gamesmenu/BlockingView.png</ttImage>
+                <ttBasePosition x="50" y="50" />
+                <ttOpacity>0</ttOpacity>
+                <ttActionsGroup>
+                    <ttTrigger>automatic</ttTrigger>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>scaleToFit</ttType>
+                            <ttActionDuration>0</ttActionDuration>
+                            <ttActionWidth>100</ttActionWidth>
+                            <ttActionHeigth>100</ttActionHeigth>
+                        </ttAction>
+                    </ttSequenceGroup>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>fadeIn</ttType>
+                            <ttActionDuration>0.2</ttActionDuration>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+                
+                <ttActionsGroup>
+                    <ttTrigger>notification</ttTrigger>
+                    <ttNotificationIdentifyer>2909</ttNotificationIdentifyer>
+                    <ttSequenceGroup>
+                        <ttAction>
+                            <ttType>fadeOut</ttType>
+                            <ttActionDuration>0.2</ttActionDuration>
+                        </ttAction>
+                    </ttSequenceGroup>
+                </ttActionsGroup>
+            </ttObject>
+            <!-- the background -->
+            <ttMacroInvoke macro_name="inAppBackgroundObject">
+                <ttMacroParam name="$image" value="buy_popup_graphics/ac_buy_popup_center_bg.png"/>
+                <ttMacroParam name="$posX" value="50"/>
+                <ttMacroParam name="$posY" value="50"/>
+                <ttMacroParam name="$scaleTo" value="1.0"/>
+            </ttMacroInvoke>
+            <!-- the close button -->
+            <ttMacroInvoke macro_name="inAppCloseObject">
+                <ttMacroParam name="$image" value="buy_popup_graphics/ac_buy_close.png"/>
+                <ttMacroParam name="$posX" value="85"/>
+                <ttMacroParam name="$posY" value="70"/>
+                <ttMacroParam name="$clickSound" value="PaintSparkles/sounds/painter/brush_select.mp3" />
+            </ttMacroInvoke>
+            <!-- a buy button - all prodcuts -->
+            <ttMacroInvoke macro_name="inAppBuyObject">
+                <ttMacroParam name="$buttonImage" value="buy_popup_graphics/full_version_purchase_button.png"/>
+                <ttMacroParam name="$posX" value="47"/>
+                <ttMacroParam name="$posY" value="57"/>
+                <ttMacroParam name="$inAppProductId" value="inAppProductFullVersion"/>
+                <ttMacroParam name="$actionType" value="inAppPurchase"/>
+            </ttMacroInvoke>
+            <!-- a buy button - Joe -->
+            <ttMacroInvoke macro_name="inAppBuyObjectExt">
+                <ttMacroParam name="$buttonImage" value="buy_popup_graphics/single_feature_purchase_button.png"/>
+                <ttMacroParam name="$posX" value="49"/>
+                <ttMacroParam name="$posY" value="39"/>
+                <ttMacroParam name="$productId2" value="$productId"/>
+            </ttMacroInvoke>
+            <!-- a restore button -->
+            <ttMacroInvoke macro_name="inAppRestoreObject">
+                <ttMacroParam name="$buttonImage" value="buy_popup_graphics/ac_buy_already_purchased.png"/>
+                <ttMacroParam name="$posX" value="17"/>
+                <ttMacroParam name="$posY" value="27"/>
+                <ttMacroParam name="$actionType" value="inAppRestore"/>
+            </ttMacroInvoke>
+        </ttInAppDialog>
+    </ttMacroBody>
+</ttMacro>

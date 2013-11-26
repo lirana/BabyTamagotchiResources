@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>markers</key>
+	<array>
+        <string>magic_wand</string>
+        <string>aqua_marine</string>
+        <string>pink</string>
+        <string>beige</string>
+        <string>gold</string>
+        <string>purple</string>
+        <string>black</string>
+        <string>green</string>
+        <string>red</string>
+        <string>blue</string>
+        <string>grey</string>
+        <string>violet</string>
+        <string>bright_green</string>
+        <string>light_blue</string>
+        <string>white</string>
+        <string>brown</string>
+        <string>magenta</string>
+        <string>yellow</string>
+        <string>copper</string>
+        <string>crimson</string>
+        <string>orange</string>
+        <string>color_brush</string>
+        <string>eraser</string>
+	</array>
+	<key>particlesCurtain</key>
+	<false/>
+	<key>playRandomSoundNotByOrder</key>
+	<true/>
+	<key>multiTouch</key>
+	<true/>
+	<key>fireworksBrush</key>
+	<false/>
+	<key>zoomInOut</key>
+	<false/>
+	<key>numOfSfxSounds</key>
+	<integer>16</integer>
+	<key>useRandomParticles</key>
+	<true/>
+</dict>
+</plist>
